@@ -1,5 +1,5 @@
 //Unicode Codepoints
-var Gujarati = {
+let Gujarati = {
 
     // Various signs
     sign_CANDRABINDU: '\u0A81',
