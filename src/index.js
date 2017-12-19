@@ -63,7 +63,7 @@ gopikaTwo[80] = Gujarati.sign_CANDRABINDU;
 gopikaTwo[81] = Gujarati.letter_UU;
 gopikaTwo[82] = Gujarati.letter_I;
 gopikaTwo[83] = Gujarati.letter_JA + Gujarati.vowel_SIGN_II;
-gopikaTwo[84] = Gujarati.sign_VIRAMA + Unicode.ZERO_WIDTH_JOINER;
+gopikaTwo[84] = Gujarati.sign_VIRAMA + Unicode.ZERO_WIDTH_NON_JOINER;
 gopikaTwo[85] = Gujarati.vowel_SIGN_E + Gujarati.sign_ANUSVARA;
 gopikaTwo[86] = Gujarati.letter_PHA;
 gopikaTwo[87] = Gujarati.letter_U;
@@ -208,6 +208,13 @@ let dependentVowels = [];
 let consonantConjucts = [];
 let halfForms = [];
 
+var codePointPrinter = function (string) {
+    for (var i = 0; i < string.length; i++) {
+        let char = string.charAt(i);
+        console.log(char, char.codePointAt(0).toString(16));
+    }
+}
+
 
 var parser = {
     convertOld: function (word) {
@@ -240,10 +247,12 @@ var parser = {
         output = output.replace(Gujarati.vowel_SIGN_AA + Gujarati.vowel_SIGN_AI, Gujarati.vowel_SIGN_AU);
         output = output.replace(Gujarati.letter_A + Gujarati.vowel_SIGN_AA + Gujarati.vowel_SIGN_E, Gujarati.letter_O);
 
+        // console.log('a', output)
+        codePointPrinter(output);
         for (let rephaIndex = output.indexOf(Gujarati.letter_RA + Gujarati.sign_VIRAMA), pCount = -1; rephaIndex > pCount;) {
             let liveConsonantIndex = rephaIndex - 1;
             let startString = output.slice(0, liveConsonantIndex);
-            let endString = output.slice(liveConsonantIndex, output.length).replace(Gujarati.letter_RA + Gujarati.sign_VIRAMA);
+            let endString = output.slice(liveConsonantIndex, output.length).replace(Gujarati.letter_RA + Gujarati.sign_VIRAMA, '');
             output = startString + (Gujarati.letter_RA + Gujarati.sign_VIRAMA) + endString;
             pCount = rephaIndex;
             rephaIndex = output.indexOf(Gujarati.letter_RA + Gujarati.sign_VIRAMA);
