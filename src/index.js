@@ -15,7 +15,7 @@ var gopikaTwo = [];
 // gopikaTwo[33] = '\u0A95';
 // gopikaTwo[34] = '\u0A95';
 gopikaTwo[35] = Gujarati.letter_II + Gujarati.sign_ANUSVARA;
-gopikaTwo[36] = Gujarati.letter_I + Gujarati.sign_ANUSVARA;;
+gopikaTwo[36] = Gujarati.letter_I + Gujarati.sign_ANUSVARA;
 // gopikaTwo[37] = '\u0A95';
 gopikaTwo[38] = Gujarati.letter_SHA + Gujarati.sign_VIRAMA + Unicode.ZERO_WIDTH_JOINER;
 // gopikaTwo[39] = '\u0A95';
@@ -90,7 +90,7 @@ gopikaTwo[107] = Gujarati.vowel_SIGN_AA;
 // gopikaTwo[108] = '\u0A95';
 // gopikaTwo[109] = '\u0A95';
 gopikaTwo[110] = Gujarati.letter_HA;
-gopikaTwo[111] = Gujarati.letter_RA + Gujarati.sign_VIRAMA + Unicode.ZERO_WIDTH_JOINER;
+gopikaTwo[111] = Gujarati.letter_RA + Gujarati.sign_VIRAMA;
 // gopikaTwo[112] = '\u0A95';
 gopikaTwo[113] = Gujarati.vowel_SIGN_UU;
 gopikaTwo[114] = Gujarati.vowel_SIGN_I;
@@ -138,7 +138,7 @@ gopikaTwo[187] = Gujarati.letter_SSA + Gujarati.sign_VIRAMA + Unicode.ZERO_WIDTH
 gopikaTwo[188] = Gujarati.letter_BHA;
 gopikaTwo[189] = Gujarati.letter_GHA;
 gopikaTwo[190] = Gujarati.letter_KHA;
-gopikaTwo[191] = Gujarati.letter_GA + Gujarati.sign_VIRAMA + Gujarati.letter_NA + Gujarati.sign_VIRAMA + Unicode.ZERO_WIDTH_JOINER;
+gopikaTwo[191] = Gujarati.letter_JA + Gujarati.sign_VIRAMA + Gujarati.letter_NYA + Gujarati.sign_VIRAMA + Unicode.ZERO_WIDTH_JOINER;
 // gopikaTwo[192] = '\u0A95';
 // gopikaTwo[193] = '\u0A95';
 gopikaTwo[194] = Gujarati.vowel_SIGN_I;
@@ -181,7 +181,7 @@ gopikaTwo[231] = Gujarati.letter_BA + Gujarati.sign_VIRAMA + Unicode.ZERO_WIDTH_
 gopikaTwo[233] = Gujarati.letter_LLA + Gujarati.sign_VIRAMA + Unicode.ZERO_WIDTH_JOINER;
 // gopikaTwo[234] = '\u0A95';
 // gopikaTwo[235] = '\u0A95';
-// gopikaTwo[236] = '\u0A95';
+gopikaTwo[236] = Gujarati.vowel_SIGN_CANDRA_E;
 gopikaTwo[237] = Gujarati.letter_TA + Gujarati.sign_VIRAMA + Unicode.ZERO_WIDTH_JOINER;
 gopikaTwo[238] = Gujarati.letter_DA + Gujarati.sign_VIRAMA + Gujarati.letter_VA;
 gopikaTwo[239] = Gujarati.letter_SHA + Gujarati.sign_VIRAMA + Gujarati.letter_VA;
@@ -195,12 +195,13 @@ gopikaTwo[245] = Gujarati.letter_KA + Gujarati.sign_VIRAMA + Unicode.ZERO_WIDTH_
 gopikaTwo[247] = Gujarati.letter_LA;
 gopikaTwo[248] = Gujarati.letter_GA + Gujarati.sign_VIRAMA + Unicode.ZERO_WIDTH_JOINER;
 gopikaTwo[249] = Gujarati.letter_SHA + Gujarati.sign_VIRAMA + Gujarati.letter_RA + Gujarati.sign_VIRAMA + Gujarati.letter_VA;
-// gopikaTwo[250] = '\u0A95';
+gopikaTwo[250] = Gujarati.sign_VIRAMA + Gujarati.letter_RA;
 gopikaTwo[251] = Gujarati.letter_KA + Gujarati.sign_VIRAMA + Gujarati.letter_SSA + Gujarati.sign_VIRAMA + Unicode.ZERO_WIDTH_JOINER;
 // gopikaTwo[252] = '\u0A95';
 gopikaTwo[253] = Gujarati.letter_NNA;
 gopikaTwo[254] = Gujarati.letter_SHA;
 gopikaTwo[255] = Gujarati.letter_DA + Gujarati.sign_VIRAMA + Gujarati.letter_RA;
+gopikaTwo[8482] = Gujarati.letter_NA;
 
 let consonants = [];
 let independentVowels = [];
@@ -208,11 +209,56 @@ let dependentVowels = [];
 let consonantConjucts = [];
 let halfForms = [];
 
+let starter = [38, 60, 64, 65, 66, 67, 71, 74, 76, 77, 83, 86, 88, 89, 90, 91, 94, 102, 103, 104, 106, 110, 115, 120, 121, 122, 123, 126, 161, 162, 163, 164, 165, 167, 169, 171, 172, 178, 179, 180, 186, 187, 188, 189, 190, 191, 193, 195, 196, 197, 199, 203, 204, 205, 206, 207, 210, 211, 212, 213, 216, 218, 219, 222, 223, 227, 228, 229230, 231, 232, 233, 234, 235, 237, 238, 239, 240, 241, 242, 243, 245, 246, 247, 248, 249, 251, 252, 253, 254, 255, 338, 381, 382, 402, 8482];
+let finisher = [60, 64, 65, 67, 70, 74, 75, 78, 86, 88, 90, 91, 97, 98, 99, 102, 103, 104, 106, 107, 109, 110, 115, 120, 122, 123, 125, 161, 162, 163, 164, 167, 169, 171, 172, 179, 180, 188, 189, 190, 196, 200, 201, 203, 205, 217, 222, 226, 227, 228, 232, 234, 235, 238, 239, 240, 241, 243, 247, 249, 250, 252, 253, 254, 255, 338, 381, 402, 8482];
+let viramaChars = [84, 217, 226, 250];
+
 var codePointPrinter = function (string) {
-    for (var i = 0; i < string.length; i++) {
+    for (var i = 0; i <= string.length; i++) {
         let char = string.charAt(i);
         console.log(char, char.codePointAt(0).toString(16));
     }
+}
+
+var shiftRight = function (charArr, matra) {
+
+    for (let matraIndex = charArr.indexOf(matra), charIndex = matraIndex + 1; matraIndex > -1; matraIndex = charArr.indexOf(matra, charIndex + 1), charIndex = matraIndex + 1) {
+
+        while (charIndex !== charArr.length) {
+            let charCode = charArr[charIndex].codePointAt(0);
+            if (finisher.indexOf(charCode) > -1 && viramaChars.indexOf(charArr[charIndex + 1].codePointAt(0)) === -1) {
+                break;
+            } else {
+                charIndex++;
+            }
+        }
+        charArr.splice(charIndex + 1, 0, matra);
+        charArr.splice(matraIndex, 1);
+
+    }
+
+    return charArr;
+}
+
+var shiftLeft = function (charArr, matra) {
+
+    for (let matraIndex = charArr.indexOf(matra), charIndex = matraIndex - 1; matraIndex > -1; matraIndex = charArr.indexOf(matra, charIndex + 1), charIndex = matraIndex - 1) {
+
+        while (charIndex !== -1) {
+            let charCode = charArr[charIndex].codePointAt(0);
+            if (starter.indexOf(charCode) > -1) {
+                break;
+            } else {
+                charIndex--;
+            }
+        }
+
+        charArr.splice(matraIndex, 1);
+        charArr.splice(charIndex, 0, matra);
+
+    }
+
+    return charArr;
 }
 
 
@@ -230,33 +276,124 @@ var parser = {
     },
 
     convert: function (word) {
-        let output = ''
-        var wordLen = word.length;
-        for (var i = 0; i < wordLen; i++) {
-            let char = word.charAt(i);
-            // console.log(char, char.codePointAt(0));
-            let iCodePoint = word.codePointAt(i);
-            output += gopikaTwo[iCodePoint] || String.fromCodePoint(iCodePoint);
-        }
+        let output = '';
+        let wordArr = [...word];
+        console.log('initial', wordArr);
+
+        wordArr = shiftLeft(wordArr, '\u006F');
+        // let rephaIndex = wordArr.indexOf('\u006F');
+        // if (rephaIndex > -1) {
+        //     let startIndex = rephaIndex - 1;
+        //     while (startIndex !== -1) {
+        //         let charCode = wordArr[startIndex].codePointAt(0);
+        //         if (starter.indexOf(charCode) > -1) {
+        //             break;
+        //         } else {
+        //             startIndex--;
+        //         }
+        //     }
+        //     wordArr.splice(rephaIndex, 1);
+        //     wordArr.splice(startIndex, 0, '\u006F');
+        // }
+
+        wordArr = shiftRight(wordArr, '\u0072');
+        wordArr = shiftRight(wordArr, '\u00C2');
+        wordArr = shiftRight(wordArr, '\u00AE');
+        console.log('after shift', wordArr);
+        // let sCharIndex = wordArr.indexOf('\u0072');
+        // if (sCharIndex > -1) {
+        //     let endIndex = sCharIndex + 1;
+        //     while (endIndex !== wordArr.length) {
+        //         let charCode = wordArr[endIndex].codePointAt(0);
+        //         if (finisher.indexOf(charCode) > -1) {
+        //             break;
+        //         } else {
+        //             endIndex++;
+        //         }
+        //     }
+        //     wordArr.splice(endIndex + 1, 0, '\u0072');
+        //     wordArr.splice(sCharIndex, 1);
+        // }
+
+        // sCharIndex = wordArr.indexOf('\u00C2', );
+        // if (sCharIndex > -1) {
+        //     let endIndex = sCharIndex + 1;
+        //     while (endIndex !== wordArr.length) {
+        //         let charCode = wordArr[endIndex].codePointAt(0);
+        //         if (finisher.indexOf(charCode) > -1) {
+        //             break;
+        //         } else {
+        //             endIndex++;
+        //         }
+        //     }
+        //     wordArr.splice(endIndex + 1, 0, '\u00C2');
+        //     wordArr.splice(sCharIndex, 1);
+        // }
+
+        // sCharIndex = wordArr.indexOf('\u00AE');
+        // if (sCharIndex > -1) {
+        //     let endIndex = sCharIndex + 1;
+        //     while (endIndex !== wordArr.length) {
+        //         let charCode = wordArr[endIndex].codePointAt(0);
+        //         if (finisher.indexOf(charCode) > -1) {
+        //             break;
+        //         } else {
+        //             endIndex++;
+        //         }
+        //     }
+        //     wordArr.splice(endIndex + 1, 0, '\u00AE');
+        //     wordArr.splice(sCharIndex, 1);
+        // }
+
+        // [...word].forEach((char, index) => {
+
+        //     console.log(char, char.codePointAt(0));
+        //     output += gopikaTwo[char.codePointAt(0)] || char
+        // });
+
+
+        // for (let remaining = length - index; remaining > 0; remaining = length - index) {
+        //     let char = wordArr[index];
+        //     let codePoint = char.codePointAt(0);
+        //     if (consonants.indexOf(codePoint) || independentVowels.indexOf(codePoint)) {
+
+        //     }
+        // }
+
+
+
+
+        wordArr.forEach((char, index) => {
+            console.log(char, char.codePointAt(0));
+            output += gopikaTwo[char.codePointAt(0)] || char
+        });
+
+        console.log('initial unicode', [...output])
 
         while (output.indexOf(Gujarati.sign_VIRAMA + Unicode.ZERO_WIDTH_JOINER + Gujarati.vowel_SIGN_AA) !== -1) {
             output = output.replace(Gujarati.sign_VIRAMA + Unicode.ZERO_WIDTH_JOINER + Gujarati.vowel_SIGN_AA, '');
         }
        
+        while (output.indexOf(Gujarati.vowel_SIGN_AA + Gujarati.vowel_SIGN_E) !== -1) {
         output = output.replace(Gujarati.vowel_SIGN_AA + Gujarati.vowel_SIGN_E, Gujarati.vowel_SIGN_O);
+        }
+
         output = output.replace(Gujarati.vowel_SIGN_AA + Gujarati.vowel_SIGN_AI, Gujarati.vowel_SIGN_AU);
         output = output.replace(Gujarati.letter_A + Gujarati.vowel_SIGN_AA + Gujarati.vowel_SIGN_E, Gujarati.letter_O);
 
-        // console.log('a', output)
-        codePointPrinter(output);
-        for (let rephaIndex = output.indexOf(Gujarati.letter_RA + Gujarati.sign_VIRAMA), pCount = -1; rephaIndex > pCount;) {
-            let liveConsonantIndex = rephaIndex - 1;
-            let startString = output.slice(0, liveConsonantIndex);
-            let endString = output.slice(liveConsonantIndex, output.length).replace(Gujarati.letter_RA + Gujarati.sign_VIRAMA, '');
-            output = startString + (Gujarati.letter_RA + Gujarati.sign_VIRAMA) + endString;
-            pCount = rephaIndex;
-            rephaIndex = output.indexOf(Gujarati.letter_RA + Gujarati.sign_VIRAMA);
-        }
+        console.log('result', [...output]);
+        // // console.log('a', output)
+        // codePointPrinter(output);
+        // for (let rephaIndex = output.indexOf(gopikaTwo[111]), pCount = -1; rephaIndex > pCount;) {
+        //     let liveConsonantIndex = rephaIndex - 1;
+        //     let startString = output.slice(0, liveConsonantIndex);
+        //     let endString = output.slice(liveConsonantIndex, output.length).replace(gopikaTwo[111], '');
+        //     output = startString + (gopikaTwo[111]) + endString;
+        //     pCount = rephaIndex;
+        //     rephaIndex = output.indexOf(gopikaTwo[111]);
+        // }
+
+
         
 
 
@@ -302,5 +439,5 @@ rawEditor.bind('input propertychange', function () {
 });
 
 // rawEditor.val('rðãwík[wtçkfeÞ');
-rawEditor.val('nxTÍoLkk «Þkuøk{kt rðãwík[wtçkfeÞ íkhtøkku');
+rawEditor.val(' Úk{kuoR÷uÂõxÙf');
 rawEditor.trigger('input');
